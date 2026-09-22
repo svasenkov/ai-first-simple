@@ -18,7 +18,8 @@ allure serve build/allure-results   # локальный Allure-отчёт
 | Продукт (форма логина) | `index.html` |
 | Тесты | `src/test/` |
 | CI | `.github/workflows/ci.yml` |
-| Harness (правила для агента) | `.devin/` |
+| Harness (правила для агента) | `.devin/rules/` |
+| Skills (вызываемые процедуры) | `.devin/skills/` |
 | Документация (kb и ADR появятся в следующих фазах) | `docs/` |
 | Описание для человека | `README.md` |
 
