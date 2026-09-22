@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Вход в систему</title>
+  <style>
+    body { font-family: sans-serif; max-width: 320px; margin: 40px auto; }
+    label { display: block; margin-top: 12px; }
+    input { width: 100%; padding: 6px; box-sizing: border-box; }
+    button { margin-top: 16px; padding: 8px 16px; }
+    #message { margin-top: 16px; padding: 8px; }
+    #message.success { background: #d4edda; color: #155724; }
+    #message.error { background: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+  <h1>Вход в систему</h1>
+
+  <form id="login-form">
+    <label for="username">Имя пользователя</label>
+    <input id="username" name="username" type="text" autocomplete="username">
+
+    <label for="password">Пароль</label>
+    <input id="password" name="password" type="password" autocomplete="current-password">
+
+    <button type="submit">Войти</button>
+  </form>
+
+  <div id="message" hidden></div>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+      var message = document.getElementById('message');
+
+      if (username === 'admin' && password === 'admin123') {
+        message.textContent = 'Вход выполнен успешно';
+        message.className = 'success';
+      } else {
+        message.textContent = 'Неверное имя пользователя или пароль';
+        message.className = 'error';
+      }
+      message.hidden = false;
+    });
+  </script>
+</body>
+</html>

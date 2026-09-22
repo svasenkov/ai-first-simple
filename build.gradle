@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group = 'qa.aifirst'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
+    testImplementation 'com.codeborne:selenide:7.9.3'
+    testImplementation 'io.qameta.allure:allure-junit5:2.29.1'
+    testImplementation 'io.qameta.allure:allure-selenide:2.29.1'
+}
+
+test {
+    useJUnitPlatform()
+    // Куда Allure складывает сырые результаты тестов (xml + вложения-скриншоты)
+    systemProperty 'allure.results.directory', "${buildDir}/allure-results"
+}
