@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  # CLI 2.29.1 не публиковался (патч вышел только для адаптера allure-junit5),
+  # поэтому берём ближайшую pinned-версию из той же линейки — 2.29.0
+  ALLURE_VERSION: 2.29.0
+  ALLURE_SHA256: 0b1d1144c699724cdfec769efad457475d8039718edfe7b1439acbd317c14223
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Клонирование репозитория
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Установка Java 21 (Temurin)
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Запуск тестов
+        run: ./gradlew test
+
+      - name: Скачивание Allure CLI
+        if: always()
+        run: |
+          curl -sSfL -o /tmp/allure.zip "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.zip"
+          echo "${ALLURE_SHA256}  /tmp/allure.zip" | sha256sum -c -
+          unzip -q /tmp/allure.zip -d /tmp/allure-cli
+
+      - name: Генерация Allure-отчёта
+        if: always()
+        run: "/tmp/allure-cli/allure-${ALLURE_VERSION}/bin/allure generate build/allure-results -o build/allure-report"
+
+      - name: Загрузка отчёта в артефакты
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: allure-report
+          path: build/allure-report

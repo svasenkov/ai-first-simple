@@ -1,5 +1,7 @@
 # ai-first-simple
 
+[![CI](https://github.com/svasenkov/ai-first-simple/actions/workflows/ci.yml/badge.svg)](https://github.com/svasenkov/ai-first-simple/actions/workflows/ci.yml)
+
 Учебный репозиторий «AI-first QA»: минимальный продукт + один автотест.
 
 ## Продукт
@@ -18,7 +20,13 @@ Gradle Wrapper хранится в git, установленный Gradle не �
 ./gradlew test
 ```
 
-Сырые результаты Allure складываются в `build/allure-results/`.
+## Где взять отчёт
+
+CI собирает Allure-отчёт на каждый push и pull request в `main`:
+вкладка **Actions** → нужный прогон → блок **Artifacts** внизу страницы →
+скачать `allure-report` → распаковать zip → открыть `index.html`.
+
+Локально сырые результаты Allure складываются в `build/allure-results/`.
 Посмотреть отчёт (если установлен Allure CLI):
 
 ```bash
