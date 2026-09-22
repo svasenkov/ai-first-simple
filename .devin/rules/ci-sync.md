@@ -11,5 +11,5 @@ globs: ["Jenkinsfile", ".github/workflows/**"]
 - Меняешь один файл — проверь и поправь второй: расхождение ломает
   один из двух CI.
 - Различия допустимы только в механике: агент `java-jdk21`, браузер
-  из Selenoid и страница с GitHub Pages через `JAVA_TOOL_OPTIONS`,
-  Allure-плагин вместо шага `generate` — см. `docs/kb/jenkins.md`.
+  из Selenoid через `JAVA_TOOL_OPTIONS`, Allure-плагин вместо шага
+  `generate` — см. `docs/kb/jenkins.md`.
