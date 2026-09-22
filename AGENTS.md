@@ -23,6 +23,7 @@ allure serve build/allure-results   # локальный Allure-отчёт
 | База знаний (вход — `INDEX.md`) | `docs/kb/` |
 | Журнал архитектурных решений (ADR) | `docs/adr/` |
 | Описание для человека | `README.md` |
+| Домашнее задание студенту | `docs/homework.md` |
 
 ## Правило навигации
 
