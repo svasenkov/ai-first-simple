@@ -10,11 +10,10 @@ pipeline {
 
     environment {
         // Браузер — из Selenoid: локального Chrome на агентах нет.
-        // Страницу удалённый браузер берёт с GitHub Pages (file:// ему
-        // недоступен). JAVA_TOOL_OPTIONS действует на каждый JVM-процесс,
-        // включая тест-воркеры Gradle — так -Dselenide.remote и -DbaseUrl
-        // доезжают до тестов.
-        JAVA_TOOL_OPTIONS = '-Dselenide.remote=https://user1:1234@selenoid.qa.guru/wd/hub -DbaseUrl=https://svasenkov.github.io/ai-first-simple/index.html'
+        // JAVA_TOOL_OPTIONS действует на каждый JVM-процесс, включая
+        // тест-воркеры Gradle — так -Dselenide.remote доезжает до тестов.
+        // Страницу браузер открывает с GitHub Pages — URL зашит в тесте.
+        JAVA_TOOL_OPTIONS = '-Dselenide.remote=https://user1:1234@selenoid.qa.guru/wd/hub'
     }
 
     stages {

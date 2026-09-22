@@ -12,7 +12,7 @@ class LoginTest extends TestBase {
     @Test
     @DisplayName("Успешный вход с валидными учётными данными")
     void successfulLogin() {
-        open(BASE_URL);
+        open("https://svasenkov.github.io/ai-first-simple/index.html");
         $("#username").setValue("admin");
         $("#password").setValue("admin123");
         $("button[type=submit]").click();

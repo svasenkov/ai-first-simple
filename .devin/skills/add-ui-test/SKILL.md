@@ -7,8 +7,9 @@ description: Добавляет новый UI-тест в src/test/ по кон�
 
 1. Новый класс в `src/test/java/qa/aifirst/`, наследуйся от `TestBase` —
    там общая настройка Selenide и Allure, не дублируй её в тесте.
-2. Пиши в Selenide-стиле: `open(BASE_URL)`, `$`, `shouldHave` — без
-   явных вызовов WebDriver и ручных ожиданий.
+2. Пиши в Selenide-стиле: `open(URL)`, `$`, `shouldHave` — без
+   явных вызовов WebDriver и ручных ожиданий. URL страницы на
+   GitHub Pages смотри в `LoginTest`.
 3. Один тест = один сценарий: не объединяй разные сценарии
    в один метод.
 4. `@DisplayName` на русском — имя теста читается как требование.

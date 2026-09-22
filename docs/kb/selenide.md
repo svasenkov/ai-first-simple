@@ -19,11 +19,12 @@
 Не дублируй эту настройку в тестах — конвенция зафиксирована
 в `.devin/rules/tests.md`.
 
-## Как тест открывает страницу без сервера?
+## Откуда тест берёт страницу?
 
-`BASE_URL = new File("index.html").toURI().toString()` в `TestBase` —
-форма открывается по `file://` прямо из корня проекта, веб-сервер
-не нужен. В тесте: `open(BASE_URL)`.
+`open("https://svasenkov.github.io/ai-first-simple/index.html")` —
+тест открывает форму, опубликованную на GitHub Pages из `main`
+(ADR-0006). Локальные правки `index.html` прогон не увидит, пока
+они не уехали в `main` и Pages не перевыложил страницу.
 
 ## Как выглядят шаги теста?
 
@@ -32,7 +33,7 @@ Selenide-стиль: `$("css")` находит элемент, `.setValue()/.cli
 из `LoginTest.successfulLogin`:
 
 ```java
-open(BASE_URL);
+open("https://svasenkov.github.io/ai-first-simple/index.html");
 $("#username").setValue("admin");
 $("#password").setValue("admin123");
 $("button[type=submit]").click();
