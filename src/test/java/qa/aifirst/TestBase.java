@@ -9,8 +9,12 @@ import java.io.File;
 
 class TestBase {
 
-    // Открываем index.html из корня проекта по file:// — веб-сервер не нужен
-    static final String BASE_URL = new File("index.html").toURI().toString();
+    // По умолчанию открываем index.html из корня проекта по file:// —
+    // веб-сервер не нужен. На удалённом браузере (selenide.remote,
+    // Jenkins + Selenoid) file:// недоступен — там baseUrl переопределяют
+    // на страницу, опубликованную через GitHub Pages (-DbaseUrl=...).
+    static final String BASE_URL = System.getProperty("baseUrl",
+            new File("index.html").toURI().toString());
 
     @BeforeAll
     static void setUp() {

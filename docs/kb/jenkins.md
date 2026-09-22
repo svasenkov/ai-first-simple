@@ -2,11 +2,10 @@
 
 ## Зачем Jenkins в этом репозитории?
 
-Сейчас CI живёт на GitHub Actions — см. `docs/kb/github-actions.md`.
-Jenkins появится в фазе 7 как пример self-hosted CI: те же тесты
+Основной CI живёт на GitHub Actions — см. `docs/kb/github-actions.md`.
+Jenkins добавлен в фазе 7 как пример self-hosted CI: те же тесты
 и тот же Allure-отчёт, но на отдельном сервере, с пайплайном как код.
-Jenkinsfile и конфиги Jenkins в репо пока отсутствуют — этот файл
-описывает план, а не существующий код.
+Пайплайн описан в `Jenkinsfile` в корне репозитория.
 
 ## Где Jenkins? Нужно ли поднимать локально?
 
@@ -27,14 +26,48 @@ Jenkinsfile и конфиги Jenkins в репо пока отсутствую�
 отсутствующего плагина — это вопрос к администратору сервера,
 а не повод ставить Jenkins локально.
 
-Gradle на агенте ставить не нужно: `./gradlew` хранится в git и сам
-скачает дистрибутив. Нужна Java 21 — как в `build.gradle`
-(toolchain) и в ci.yml (Temurin 21).
+## Требования к агенту Jenkins
 
-## Что будет делать пайплайн (фаза 7)?
+- **Java 21** — как в `build.gradle` (toolchain) и в ci.yml
+  (Temurin 21). На jenkins.qa.guru это агенты с label
+  `java-jdk21` — он и указан в Jenkinsfile (`agent any` мог бы
+  попасть на js/python-агент на Alpine/musl, где Chrome не встанет).
+  Блока `tools {}` нет: имена тулов зависят от сервера, Java должна
+  быть на агенте заранее.
+- **Gradle ставить не нужно**: `./gradlew` лежит в git и сам
+  скачает дистрибутив при первом запуске.
+- **Браузер — из Selenoid**: локального Chrome на агентах нет.
+  Jenkinsfile передаёт `-Dselenide.remote` через `JAVA_TOOL_OPTIONS`
+  — он действует на JVM тест-воркеров Gradle, шаг `./gradlew test`
+  не меняется. Удалённый браузер не видит `file://`, поэтому
+  страницу он открывает с **GitHub Pages** — адрес передаётся через
+  `-DbaseUrl` там же. Оба URL — в блоке `environment` Jenkinsfile.
+  Цена решения: Jenkins тестирует опубликованную main-версию
+  страницы, а не свежий checkout из PR — для учебного репозитория
+  приемлемо. Локально без `-DbaseUrl` тесты по-прежнему открывают
+  `index.html` из checkout'а по `file://`.
+
+## Как завести job на jenkins.qa.guru
+
+1. **New Item** → ввести имя → выбрать тип **Pipeline** → OK.
+2. В настройках job'а в секции «Pipeline» выбрать
+   **Pipeline script from SCM**.
+3. SCM: **Git**, в Repository URL — адрес этого репозитория.
+4. Branch Specifier: `*/main`.
+5. Script Path: `Jenkinsfile` (значение по умолчанию).
+6. Сохранить и нажать **Build Now**.
+
+## Где появляется Allure-отчёт
+
+После сборки на странице прогона появляется ссылка **Allure Report**
+(иконка Allure в левом меню страницы сборки). Отчёт генерирует
+сам плагин из `build/allure-results` — это делает блок
+`post { always { allure ... } }` в Jenkinsfile, отдельный шаг
+генерации, как в ci.yml, не нужен.
+
+## Что делает пайплайн?
 
 Те же шаги, что в `.github/workflows/ci.yml`: checkout →
-`./gradlew test` → генерация Allure-отчёта → публикация отчёта
-плагином Allure на jenkins.qa.guru. Канонический список шагов
-и их порядок — в ci.yml, Jenkinsfile должен повторять их,
-а не выдумывать свои.
+`./gradlew test` → публикация Allure-отчёта плагином на
+jenkins.qa.guru. Канонический список шагов и их порядок — в
+ci.yml, Jenkinsfile повторяет их, а не выдумывает свои.

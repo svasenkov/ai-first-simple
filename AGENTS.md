@@ -17,7 +17,7 @@ allure serve build/allure-results   # локальный Allure-отчёт
 | --- | --- |
 | Продукт (форма логина) | `index.html` |
 | Тесты | `src/test/` |
-| CI | `.github/workflows/ci.yml` |
+| CI | `.github/workflows/ci.yml`, `Jenkinsfile` |
 | Harness (правила для агента) | `.devin/rules/` |
 | Skills (вызываемые процедуры) | `.devin/skills/` |
 | База знаний (вход — `INDEX.md`) | `docs/kb/` |
