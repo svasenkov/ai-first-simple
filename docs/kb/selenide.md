@@ -17,7 +17,7 @@
   лисенер прикрепляет скриншот к шагам в Allure (см. `allure.md`).
 
 Не дублируй эту настройку в тестах — конвенция зафиксирована
-в `.devin/rules/tests.md`.
+в `.cursor/rules/tests.mdc`.
 
 ## Откуда тест берёт страницу?
 
@@ -58,4 +58,4 @@ $("#message").shouldHave(text("Вход выполнен успешно"));
 
 Класс в `src/test/java/qa/aifirst/`, наследование от `TestBase`,
 один метод = один сценарий, `@DisplayName` на русском. Процедура —
-skill `.devin/skills/add-ui-test/SKILL.md`.
+skill `.cursor/skills/add-ui-test/SKILL.md`.

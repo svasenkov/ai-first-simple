@@ -1,6 +1,6 @@
 ---
 description: "Запрет коммитов без явного запроса пользователя"
-trigger: always_on
+alwaysApply: true
 ---
 
 # Коммиты только по запросу

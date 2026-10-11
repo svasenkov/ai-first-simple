@@ -1,7 +1,7 @@
 ---
 description: "AGENTS.md — роутер ≤ 50 строк, только ссылки (ADR-0003)"
-trigger: glob
-globs: ["AGENTS.md"]
+globs: AGENTS.md
+alwaysApply: false
 ---
 
 # Контракт роутера

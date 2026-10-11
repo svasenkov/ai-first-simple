@@ -18,8 +18,8 @@ allure serve build/allure-results   # локальный Allure-отчёт
 | Продукт (форма логина) | `index.html` |
 | Тесты | `src/test/` |
 | CI | `.github/workflows/ci.yml`, `Jenkinsfile` |
-| Harness (правила для агента) | `.devin/rules/` |
-| Skills (вызываемые процедуры) | `.devin/skills/` |
+| Harness (правила для агента) | `.cursor/rules/` |
+| Skills (вызываемые процедуры) | `.cursor/skills/` |
 | База знаний (вход — `INDEX.md`) | `docs/kb/` |
 | Журнал архитектурных решений (ADR) | `docs/adr/` |
 | Описание для человека | `README.md` |
@@ -29,7 +29,7 @@ allure serve build/allure-results   # локальный Allure-отчёт
 
 1. Сначала читай этот файл.
 2. Затем открывай только нужный файл по ссылке из карты выше.
-3. Не читай весь репозиторий: scoped-правила из `.devin/rules/`
+3. Не читай весь репозиторий: scoped-правила из `.cursor/rules/`
    подгружаются автоматически, когда ты работаешь с файлами по их glob.
 4. Любое изменение стека/архитектуры → новый ADR по
    `docs/adr/0000-template.md`.

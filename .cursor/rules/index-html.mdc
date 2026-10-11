@@ -1,7 +1,7 @@
 ---
 description: "index.html связан с тестами: локаторы, креды и тексты формы"
-trigger: glob
-globs: ["index.html"]
+globs: index.html
+alwaysApply: false
 ---
 
 # Продукт связан с тестами

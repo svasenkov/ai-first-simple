@@ -7,6 +7,8 @@
     body { font-family: sans-serif; max-width: 320px; margin: 40px auto; }
     label { display: block; margin-top: 12px; }
     input { width: 100%; padding: 6px; box-sizing: border-box; }
+    input[type="checkbox"] { width: auto; padding: 0; }
+    label.remember { display: flex; align-items: center; gap: 8px; }
     button { margin-top: 16px; padding: 8px 16px; }
     #message { margin-top: 16px; padding: 8px; }
     #message.success { background: #d4edda; color: #155724; }
@@ -23,27 +25,65 @@
     <label for="password">Пароль</label>
     <input id="password" name="password" type="password" autocomplete="current-password">
 
+    <label class="remember" for="remember-me">
+      <input id="remember-me" name="remember-me" type="checkbox">
+      Запомнить меня
+    </label>
+
     <button type="submit">Войти</button>
   </form>
 
   <div id="message" hidden></div>
 
   <script>
+    var REMEMBER_KEY = 'rememberedUsername';
+    var usernameInput = document.getElementById('username');
+    var rememberInput = document.getElementById('remember-me');
+    var remembered = localStorage.getItem(REMEMBER_KEY);
+
+    if (remembered) {
+      usernameInput.value = remembered;
+      rememberInput.checked = true;
+    }
+
     document.getElementById('login-form').addEventListener('submit', function (event) {
       event.preventDefault();
 
-      var username = document.getElementById('username').value;
+      var username = usernameInput.value;
       var password = document.getElementById('password').value;
       var message = document.getElementById('message');
+      var usernameEmpty = username.trim() === '';
+      var passwordEmpty = password.trim() === '';
+
+      function show(text, kind) {
+        message.textContent = text;
+        message.className = kind;
+        message.hidden = false;
+      }
+
+      if (usernameEmpty && passwordEmpty) {
+        show('Введите имя пользователя и пароль', 'error');
+        return;
+      }
+      if (usernameEmpty) {
+        show('Введите имя пользователя', 'error');
+        return;
+      }
+      if (passwordEmpty) {
+        show('Введите пароль', 'error');
+        return;
+      }
 
       if (username === 'admin' && password === 'admin123') {
-        message.textContent = 'Вход выполнен успешно';
-        message.className = 'success';
+        if (rememberInput.checked) {
+          localStorage.setItem(REMEMBER_KEY, username);
+        } else {
+          localStorage.removeItem(REMEMBER_KEY);
+        }
+        show('Вход выполнен успешно', 'success');
       } else {
-        message.textContent = 'Неверное имя пользователя или пароль';
-        message.className = 'error';
+        show('Неверное имя пользователя или пароль', 'error');
       }
-      message.hidden = false;
     });
   </script>
 </body>

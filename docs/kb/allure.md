@@ -43,7 +43,7 @@
    `build/allure-results/` или в шаге упавшего теста в html-отчёте.
 3. В CI — в артефакте `allure-report` прогона Actions.
 
-Полная процедура разбора — skill `.devin/skills/run-tests/SKILL.md`.
+Полная процедура разбора — skill `.cursor/skills/run-tests/SKILL.md`.
 
 ## Как открыть отчёт из CI?
 

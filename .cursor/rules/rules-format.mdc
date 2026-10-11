@@ -1,0 +1,31 @@
+---
+description: "Формат правил и skills в .cursor/"
+globs: .cursor/**
+alwaysApply: false
+---
+
+# Формат файлов правил и skills
+
+Новое правило — файл `.cursor/rules/<имя>.mdc` с frontmatter:
+
+```markdown
+---
+description: "<короткое описание на русском>"
+globs: <паттерн>
+alwaysApply: false
+---
+
+<текст правила>
+```
+
+- `globs` — одна строка. Несколько паттернов пиши через запятую:
+  `globs: src/test/**,index.html`.
+- Один файл — одно правило.
+- `alwaysApply: false` вместе с `globs` — правило активно только при
+  работе с файлами по паттерну. `alwaysApply: true` — в каждой сессии;
+  поле `globs` тогда не указывай.
+- Текст правила короткий и конкретный.
+
+Новый skill — каталог `.cursor/skills/<имя>/SKILL.md`:
+frontmatter `name` и `description` (что делает и когда применять),
+тело — пошаговая процедура.

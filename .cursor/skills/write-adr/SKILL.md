@@ -1,6 +1,6 @@
 ---
 name: write-adr
-description: Создаёт ADR (Architecture Decision Record) в docs/adr/ по формату Context / Decision / Consequences. Используй, когда нужно зафиксировать архитектурное решение.
+description: Создаёт ADR в docs/adr/ по секциям Context, Decision и Consequences. Применяется, когда нужно зафиксировать архитектурное решение или изменение стека.
 ---
 
 # Написание ADR

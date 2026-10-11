@@ -1,7 +1,7 @@
 ---
 description: "Jenkinsfile и ci.yml повторяют одни шаги — не должны расходиться (ADR-0004)"
-trigger: glob
-globs: ["Jenkinsfile", ".github/workflows/**"]
+globs: Jenkinsfile,.github/workflows/**
+alwaysApply: false
 ---
 
 # Синхронность CI-конфигов

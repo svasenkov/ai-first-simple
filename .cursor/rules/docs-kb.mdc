@@ -1,7 +1,7 @@
 ---
 description: "Дисциплина ссылок в docs/: INDEX.md, нумерация ADR, карта AGENTS.md"
-trigger: glob
-globs: ["docs/**"]
+globs: docs/**
+alwaysApply: false
 ---
 
 # Дисциплина ссылок в docs/

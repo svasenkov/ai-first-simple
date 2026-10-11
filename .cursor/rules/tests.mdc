@@ -1,7 +1,7 @@
 ---
 description: "Конвенции автотестов: наследование от TestBase, Selenide-стиль, один тест — один сценарий"
-trigger: glob
-globs: ["src/test/**"]
+globs: src/test/**
+alwaysApply: false
 ---
 
 # Конвенции тестов
